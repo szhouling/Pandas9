@@ -1,0 +1,8 @@
+import pandas as pd
+
+def largest_orders(orders: pd.DataFrame) -> pd.DataFrame:
+    df = orders.groupby('customer_number').size().reset_index(name = 'count')
+    df.sort_values(by = ['count'], ascending = False, inplace = True)
+    if len(df) == 0:
+        return pd.DataFrame([], columns = ['customer_number'])
+    return pd.DataFrame([df.iloc[0]['customer_number']]).rename(columns = {0 : 'customer_number'})
